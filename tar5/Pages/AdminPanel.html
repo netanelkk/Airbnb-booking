@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <script src="../Scripts/ajaxCalls.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(document).ready(function () {
+           if (localStorage.getItem('email') == 'admin@gmail.com') {
+                $("#mainPanel").show();
+               $("#access").hide();
+
+               readUsers();
+               readHosts();
+               readApartments();
+
+               // fetching all data from Excel to Database
+               $("#importData").click(function () {
+                   $(this).attr("disabled", "disabled");
+                   $(this).text("Please Wait..");
+                       ajaxCall("GET", "../api/apartment", "", readSCB, readECB);
+               });
+           }
+        });
+
+        function readSCB(data) {
+            alert(data);
+            location.href = "AdminPanel.html";
+        }
+
+        function readUsers() {
+            ajaxCall("GET", "../api/AdminUsers", "", usersSuccess, readECB);
+        }
+
+        function readApartments() {
+            ajaxCall("GET", "../api/AdminApartments", "", apartmentsSuccess, readECB);
+        }
+
+        function readHosts() {
+            ajaxCall("GET", "../api/AdminHosts", "", hostsSuccess, readECB);
+        }
+
+        function usersSuccess(data) {
+            let users = data;
+            if (users == null) {
+                $("#dataError").show(200);
+                $("#usersTable .loadingTd").text("Error Reading Users Data");
+                return;
+            }
+            try {
+                tbl = $('#usersTable').DataTable({
+                    data: users,
+                    pageLength: 25,
+                    responsive: true,
+                    "searching": false,
+                    columns: [
+                        { data: "Id" },
+                        { data: "Email" },
+                        { data: "Username" },
+                        {
+                            data: "RegisterDate",
+                            render: function (data, type, row, meta) {
+                                return data.split(" ")[0];
+                            }
+                        },
+                        { data: "Orders" },
+                        {
+                            data: "TotalProfit",
+                            render: function (data, type, row, meta) {
+                                return data+" $";
+                            }
+                        },
+                        { data: "OrderCancellations" }
+                    ],
+
+                });
+            }
+
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        function hostsSuccess(data) {
+            let hosts = data;
+            if (hosts == null) {
+                $("#dataError").show(200);
+                $("#hostsTable .loadingTd").text("Error Reading Hosts Data");
+                return;
+            }
+            try {
+                tbl = $('#hostsTable').DataTable({
+                    data: hosts,
+                    pageLength: 25,
+                    responsive: true,
+                    "searching": false,
+                    columns: [
+                        {
+                            data: "Host_picture_url",
+                            render: function (data, type, row, meta) {
+                                return '<img src="' + data + '" style="height:50px;">';
+                            }
+                        },
+                        { data: "Host_name" },
+                        { data: "Host_since" },
+                        { data: "ApartmentsCount" },
+                        {
+                            data: "TotalProfit",
+                            render: function (data, type, row, meta) {
+                                return data + " $";
+                            }
+                        },
+                        { data: "TotalCancellations" }
+                    ],
+
+                });
+            }
+
+            catch (err) {
+                alert(err);
+            }
+        }
+
+
+        function apartmentsSuccess(data) {
+            let apartments = data;
+            if (apartments == null) {
+                $("#dataError").show(200);
+                $("#apartmentsTable .loadingTd").text("Error Reading Apartments Data");
+                return;
+            }
+            try {
+                tbl = $('#apartmentsTable').DataTable({
+                    data: apartments,
+                    pageLength: 25,
+                    responsive: true,
+                    "searching": false,
+                    columns: [
+                        {
+                            data: "Picture_url",
+                            render: function (data, type, row, meta) {
+                                return '<img src="' + data + '" style="height:50px;">';
+                            }
+                        },
+                        {
+                            data: "Name",
+                            render: function (data, type, row, meta) {
+                                return '<span class="apartment apartmentLink" data-apartmentId="' + row.ApartmentId + '">' + data.substring(0, 20) + '...</span>';
+                            }
+                        },
+                        { data: "TotalDaysRented" },
+                        { data: "TotalCancellations" }
+                    ],
+
+                });
+            }
+
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        function readECB(data) {
+            $(this).removeAttr("disabled");
+            $(this).text("Import Data");
+            alert("Error loading data");
+            console.log(data);
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:wght@600&display=swap');
+        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+        html {
+            height: 100%;
+        }
+
+        body {
+            background: #f4f4f4;
+            margin:0;
+            padding:10px 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #access {
+            margin-top: 35px;
+        }
+
+        h1 {
+            margin: 30px 0;
+        }
+
+        table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after, table.dataTable thead .sorting_desc::after {
+            content: "";
+        }
+
+        #usersTable_wrapper .row, #apartmentsTable_wrapper .row, #hostsTable_wrapper .row {
+            width: 100%;
+            text-align: center;
+        }
+
+        select {
+            margin: 0 10px;
+        }
+
+        #mainPanel, #dataError {
+            display: none;
+        }
+
+        .loadingTd {
+            text-align: center;
+            padding: 50px 0;
+            background: #e1e1e1;
+        }
+
+        #messageFix {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="index.html">Back To Main Screen</a>
+        <div id="mainPanel">
+            <div class="alert alert-info" role="alert" id="dataError">
+                <div class="row">
+                    <div class="col-md-10" id="messageFix">
+                        Seems like there is a problem loading some of the data, try fetching it again
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-secondary" id="importData">Import Data</button>
+                    </div>
+                </div>
+            </div>
+            <h1>Users</h1>
+            <table id="usersTable" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Register Date</th>
+                        <th>Orders</th>
+                        <th>Total Profit</th>
+                        <th>Order Cancellations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1 loadingTd" colspan="7">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h1>Hosts</h1>
+            <table id="hostsTable" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th></th>
+                        <th>Name</th>
+                        <th>Registration Date</th>
+                        <th>Apartments</th>
+                        <th>Total Profit</th>
+                        <th>Total Cancellations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1 loadingTd" colspan="6">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+            <h1>Apartments</h1>
+            <table id="apartmentsTable" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th></th>
+                        <th>Name</th>
+                        <th>Total Days Rented</th>
+                        <th>Total Cancellations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1 loadingTd" colspan="4">Loading...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-warning" role="alert" id="access">
+            Access Denied
+        </div>
+    </div>
+</body>
+</html>

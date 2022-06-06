@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tar5", "tar5\tar5.csproj", "{743B316A-4D42-40E7-8FBC-29BE79AA8E19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{743B316A-4D42-40E7-8FBC-29BE79AA8E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{743B316A-4D42-40E7-8FBC-29BE79AA8E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{743B316A-4D42-40E7-8FBC-29BE79AA8E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{743B316A-4D42-40E7-8FBC-29BE79AA8E19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6427E23B-6038-472E-9D16-14FA8E1CB433}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,332 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:wght@600&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+
+html {
+    height: 100%;
+}
+
+body {
+    background: #f4f4f4;
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+#banner {
+    background: url('../Images/banner.jpg') no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 70%;
+    position: relative;
+}
+
+#banner-layer {
+    background: #424242c2;
+    width: 100%;
+    height: 100%;
+}
+
+#filterBox h1 {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding-top: 25px;
+    font-size: 40pt;
+    text-shadow: 0px 2px 2px #000;
+    text-align: center;
+    color: white;
+}
+
+    #filterBox h1 b {
+        font-size: 60pt;
+        display: block;
+        margin-top: -5px;
+    }
+
+.navbar {
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #b9b9b9;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #e3e3e3;
+}
+
+#dash {
+    margin-top: 8px;
+}
+
+.Range div:nth-child(1) {
+    text-align: left;
+}
+
+.Range div:nth-child(2) {
+    text-align: center;
+    background: white;
+    color: #3e3e3e;
+    border-radius: 10px;
+}
+
+.Range div:nth-child(3) {
+    text-align: right;
+}
+
+.rowSpace {
+    margin-top: 25px;
+}
+
+#searchContainer {
+    background: white;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 15px 35px;
+    box-shadow: 0 2px 5px #2b2b2b;
+    border-radius: 3px;
+}
+
+fieldset {
+    padding: 10px;
+    background: #f4f4f4;
+}
+
+.card-img-top {
+    height: 250px;
+}
+
+.apartmentCard {
+    height: 510px;
+    cursor: pointer;
+}
+
+.apartmentCardBody {
+    position: relative;
+}
+
+.pricelabel {
+    bottom: 1.25rem;
+    position: absolute;
+    background: #d5d5d5;
+    padding: 5px 15px;
+    font-size: 10pt;
+}
+
+#apartmentPrice {
+    background: #d5d5d5;
+    padding: 5px 15px;
+    font-size: 10pt;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.openApartment {
+    bottom: 1.25rem;
+    position: absolute;
+    right: 1.25rem;
+}
+
+.bigprice {
+    font-size: 16pt;
+}
+
+strong {
+    padding: 5px 15px;
+}
+
+.pagination {
+    visibility: hidden;
+}
+
+.rangeText {
+    border-bottom: 1px solid #b0b0b0;
+    border-radius: 0 !important;
+}
+
+.boldPrice {
+    font-size: 20pt;
+}
+
+#searchBox {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#backButton {
+    width: 20%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    display: none;
+}
+
+#apartmentPage, #ordersPage {
+    background: white;
+    position: absolute;
+    margin: auto;
+    right: 0;
+    left: 0;
+    box-shadow: 0px 2px 5px #888585;
+    display: none;
+}
+
+#ordersPage {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#apartment-name {
+    font-size: 20pt;
+}
+
+#apartment-amenities {
+    font-size: 10pt;
+}
+
+#apartment-picture {
+    width: 100%;
+    height: 500px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+.reviewCard {
+    margin: 10px 0;
+}
+
+.blockquote {
+    font-size: 10pt;
+}
+
+.formTd {
+    width: 30%;
+}
+
+.beforeLogin, .afterLogin, #orderComplete, #noOrdersAlert, #adminPanelButton {
+    display: none;
+}
+
+#noOrdersAlert {
+    margin-top: 25px;
+}
+
+table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after, table.dataTable thead .sorting_desc::after {
+    content: "";
+}
+
+#ordersTable_wrapper .row {
+    width: 100%;
+    text-align: center;
+}
+
+.apartmentLink {
+    color: #357499;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.apartmentsBlock {
+    padding: 20px;
+}
+
+#map {
+    height:100%;
+}
+
+#pageNav {
+    margin-top: 50px;
+}
+
+#reviewPageNav {
+    margin-top: 20px;
+}
+
+.mapBlock {
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+}
+
+.mainPage {
+    min-height: 100%;
+}
+
+#apartmentMap {
+    height: 300px;
+}
+
+#apartmentTitle {
+    margin-top:15px;
+    position:relative;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    #searchContainer, .mapBlock, #backButton {
+        position: initial;
+    }
+
+    #banner {
+        height:auto;
+    }
+
+    .mapBlock {
+        height: 400px;
+        margin-top:40px;
+    }
+
+    #filterBox h1 {
+        font-size: 30pt;
+        margin-bottom: 20px;
+    }
+
+        #filterBox h1 b {
+            font-size: 40pt;
+        }
+    #searchBox {
+        position:initial;
+        width:100%;
+    }
+
+    #map .card-img-top {
+        display: none;
+    }
+
+    #map .apartmentCard {
+        height: 250px;
+        cursor: pointer;
+    }
+
+    .apartmentCard, #submitOrder, .input-group {
+        margin-top: 10px;
+    }
+
+    #backButton {
+        width: 80%;
+        margin: auto;
+    }
+
+    .pagination {
+        margin-bottom:50px;
+    }
+
+    .scheduler-border, #ratingSection {
+        margin-top: 20px;
+    }
+}
